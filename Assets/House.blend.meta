@@ -4,16 +4,30 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Cube_001
+    100004: Plane_002
     400000: //RootNode
+    400002: Cube_001
+    400004: Plane_002
     2100000: Roof
     2100002: Pillars
     2100004: Walls
     2100006: Slabs
     2100008: Window_Frames
     2100010: Window
+    2100012: Wood
+    2100014: Minihouse
+    2100016: Glass
+    2100018: Top
+    2100020: Doorknob
     2300000: //RootNode
+    2300002: Cube_001
+    2300004: Plane_002
     3300000: //RootNode
+    3300002: Cube_001
+    3300004: Plane_002
     4300000: Plane_002
+    4300002: Cube_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

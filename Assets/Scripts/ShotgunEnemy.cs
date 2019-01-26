@@ -8,7 +8,6 @@ public class ShotgunEnemy : EnemyController
     public float reloadTime;
     public float chargeTime;
     public GameObject projectilePrefab;
-    public MeshRenderer mesh;
 
     private void Update()
     {
@@ -21,9 +20,6 @@ public class ShotgunEnemy : EnemyController
     private IEnumerator Fire()
     {
         fired = true;
-        mesh.material.color = Color.white;
-        yield return new WaitForSeconds(chargeTime);
-        mesh.material.color = Color.red;
         Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, 10, 0)));
         Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles));
         Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles - new Vector3(0, 10, 0)));
