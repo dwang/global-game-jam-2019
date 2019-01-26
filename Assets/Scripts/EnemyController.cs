@@ -5,11 +5,13 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float health;
+    public float speed;
+
+    [Header("Dependencies")]
     public Rigidbody rb;
     public ParticleSystem explosion;
     public GameManager gameManager;
-    public float speed;
-    public Transform player;
+    public Transform target;
 
     private void Start()
     {
@@ -18,8 +20,20 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(player);
+        transform.LookAt(target);
         rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            target = other.transform;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            target = null;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -30,9 +44,7 @@ public class EnemyController : MonoBehaviour
             if (throwableObject.velocity.magnitude > health)
                 Death();
         } else if (rb.velocity.magnitude > health)
-        {
             Death();
-        }
     }
 
     public void Death()
