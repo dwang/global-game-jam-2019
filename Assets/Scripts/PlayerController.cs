@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
-        rb.MovePosition(rb.position + movement);
+        rb.MovePosition(rb.position + movement * Time.deltaTime);
 
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(0, Input.GetAxis("Horizontal") * turnSpeed, 0));
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0));
 
         if (Input.GetKeyDown(KeyCode.Space) && canThrow)
             ThrowObject();
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
             heldObject = pickUpGameObject;
 
             heldObject.rb.velocity = Vector3.zero;
-            offset = new Vector3(0, heldObject.GetComponent<MeshRenderer>().bounds.size.magnitude / 2, 0);
+            offset = new Vector3(0, heldObject.mesh.bounds.size.magnitude * heldObject.transform.lossyScale.x / 2, 0);
             heldObject.rb.useGravity = false;
             heldObject.GetComponent<Collider>().enabled = false;
             canThrow = true;
