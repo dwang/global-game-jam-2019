@@ -17,6 +17,7 @@ public class BasicProjectile : Projectile
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Projectiles") || other.CompareTag("Enemy"))
             return;
+        Debug.Log(LayerMask.LayerToName(other.gameObject.layer) + " " + other.tag);
         deathParticle.transform.SetParent(null);
         deathParticle.Play();
         Destroy(deathParticle.gameObject, deathParticle.main.duration);

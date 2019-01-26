@@ -41,9 +41,9 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Throwable"))
         {
             Rigidbody throwableObject = collision.gameObject.GetComponent<Rigidbody>();
-            if (throwableObject.velocity.magnitude > health)
+            if (throwableObject.velocity.magnitude > 1 && rb.mass >= health)
                 Death();
-        } else if (rb.velocity.magnitude > health)
+        } else if (rb.velocity.magnitude > 1 && rb.mass >= health)
             Death();
     }
 
