@@ -27,18 +27,23 @@ public class PlayerController : MonoBehaviour
 
         rb.MoveRotation(rb.rotation * Quaternion.Euler(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0));
 
-        if (Input.GetKeyDown(KeyCode.Space) && canThrow)
-            ThrowObject();
-        else if (Input.GetKeyDown(KeyCode.Space) && heldObject == null)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            var colliders = Physics.OverlapSphere(transform.position, pickUpRadius).Where(x => x.GetComponent<ThrowableObject>() != null && !ReferenceEquals(x.gameObject, gameObject));
-            if (colliders.Count() > 0)
-                PickUpObject(colliders.First().GetComponent<ThrowableObject>());
+            if (canThrow)
+                ThrowObject();
+            else if (heldObject == null)
+            {
+                var colliders = Physics.OverlapSphere(transform.position, pickUpRadius).Where(x => x.GetComponent<ThrowableObject>() != null && !ReferenceEquals(x.gameObject, gameObject));
+                if (colliders.Count() > 0)
+                    PickUpObject(colliders.First().GetComponent<ThrowableObject>());
+            }
         }
-        if (heldObject != null)
-            heldObject.transform.position = Vector3.SmoothDamp(heldObject.transform.position, holdObjectTransform.position + offset, ref smoothVelocity, heldObjectFolllowSmooth);
-    }
 
+        if (heldObject != null)
+        {
+            heldObject.transform.position = Vector3.SmoothDamp(heldObject.transform.position, holdObjectTransform.position + offset, ref smoothVelocity, heldObjectFolllowSmooth);
+        }
+    }
     public void PickUpObject(ThrowableObject pickUpGameObject)
     {
         if (heldObject == null)
