@@ -7,27 +7,34 @@ ModelImporter:
     100002: Sombrero
     100004: Top_Hat
     100006: Viking_Helmet
+    100008: Straw_Hat
     400000: //RootNode
     400002: Sombrero
     400004: Top_Hat
     400006: Viking_Helmet
+    400008: Straw_Hat
     2100000: Viking_Helmet
     2100002: Horns
     2100004: Extrusions
     2100006: Sombrero
     2100008: Sombrero_Wrap
     2100010: Top_Hat
+    2100012: Straw_Hat
+    2100014: Wrap
     2300000: //RootNode
     2300002: Sombrero
     2300004: Top_Hat
     2300006: Viking_Helmet
+    2300008: Straw_Hat
     3300000: //RootNode
     3300002: Sombrero
     3300004: Top_Hat
     3300006: Viking_Helmet
+    3300008: Straw_Hat
     4300000: Viking_Helmet
     4300002: Sombrero
     4300004: Top_Hat
+    4300006: Straw_Hat
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
