@@ -20,8 +20,11 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(target);
-        rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+        if (target != null)
+        {
+            rb.MoveRotation(Quaternion.Euler(0, -Mathf.Atan2(target.position.z - transform.position.z, target.position.x - transform.position.x) * Mathf.Rad2Deg + 90, 0));
+            rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,12 +41,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Throwable"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Throwable") && collision.gameObject.GetComponent<ThrowableObject>().thrown)
         {
             Rigidbody throwableObject = collision.gameObject.GetComponent<Rigidbody>();
-            if (throwableObject.velocity.magnitude > 1 && rb.mass >= health)
+            if (throwableObject.velocity.magnitude > 2 && rb.mass >= health)
                 Death();
-        } else if (rb.velocity.magnitude > 1 && rb.mass >= health)
+        } else if (rb.velocity.magnitude > 2 && rb.mass >= health)
             Death();
     }
 
