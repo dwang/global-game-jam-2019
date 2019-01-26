@@ -24,9 +24,9 @@ public class ShotgunEnemy : EnemyController
         mesh.material.color = Color.white;
         yield return new WaitForSeconds(chargeTime);
         mesh.material.color = Color.red;
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.forward + new Vector3(0, 10, 0)));
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.forward));
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.forward - new Vector3(0, 10, 0)));
+        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, 10, 0)));
+        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles));
+        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles - new Vector3(0, 10, 0)));
         yield return new WaitForSeconds(reloadTime);
         fired = false;
     }
