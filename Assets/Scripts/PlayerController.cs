@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            if (canThrow)
+            if (canThrow && heldObject != null)
                 ThrowObject();
             else if (heldObject == null)
             {

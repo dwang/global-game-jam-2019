@@ -51,7 +51,6 @@ public class EnemyController : MonoBehaviour
     {
         explosion.transform.SetParent(null);
         explosion.Play();
-        gameManager.Death();
         Destroy(explosion.gameObject, explosion.main.duration);
         Destroy(gameObject);
     }
