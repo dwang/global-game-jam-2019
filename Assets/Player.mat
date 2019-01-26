@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Player
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_Shader: {fileID: 4800000, guid: 957f8bad3db22374dbc9ef1baa1a2c5a, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -71,8 +71,9 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _Mode: 0
+    - _Mode: 1
     - _OcclusionStrength: 1
+    - _Outline: 0.03
     - _Parallax: 0.02
     - _ReceiveShadows: 1
     - _SmoothnessTextureChannel: 0
@@ -83,6 +84,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.67650664, b: 0.8584906, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

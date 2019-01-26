@@ -18,9 +18,7 @@ public class GameManager : MonoBehaviour, IService
 
     private IEnumerator DeathEnum()
     {
-        Time.timeScale = 0.1f;
         yield return new WaitForSecondsRealtime(0.5f);
         cameraVFX.Shake(0.5f, 0.7f, 1f);
-        Time.timeScale = 1;
     }
 }
