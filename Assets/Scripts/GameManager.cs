@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IService
 {
-    // Start is called before the first frame update
-    void Start()
+    public CameraVFX cameraVFX;
+
+    private void Awake()
     {
-        
+        ServiceLocator.Instance.AddService(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Death()
     {
-        
+        StartCoroutine(DeathEnum());
+    }
+
+    private IEnumerator DeathEnum()
+    {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(0.5f);
+        cameraVFX.Shake(0.5f, 0.7f, 1f);
+        Time.timeScale = 1;
     }
 }
