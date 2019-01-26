@@ -5,6 +5,7 @@ using UnityEngine;
 public class ThrowableObject : MonoBehaviour
 {
     public Rigidbody rb;
+    public MeshRenderer mesh;
     public bool thrown;
     public float jumpAmount;
 
