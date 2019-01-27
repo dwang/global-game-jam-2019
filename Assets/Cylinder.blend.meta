@@ -1,61 +1,14 @@
 fileFormatVersion: 2
-guid: 5b14d16765070e64da39e1b8974c87af
+guid: 1ab07ba3450276346b2b5eeb64cc17d1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Cube_001
-    100004: Plane_002
-    100006: House
-    100008: Large_House
-    100010: Plane
-    100012: Cube
     400000: //RootNode
-    400002: Cube_001
-    400004: Plane_002
-    400006: House
-    400008: Large_House
-    400010: Plane
-    400012: Cube
-    2100000: Roof
-    2100002: Pillars
-    2100004: Walls
-    2100006: Slabs
-    2100008: Window_Frames
-    2100010: Window
-    2100012: Wood
-    2100014: Minihouse
-    2100016: Glass
-    2100018: Top
-    2100020: Doorknob
-    2100022: Window_Glass
-    2100024: Frames
-    2100026: Roof_Balcony
-    2100028: Apartment
-    2100030: Modern_House
-    2100032: Material
-    2100034: Secondary_Walls
-    2100036: Frames_001
+    2100000: unnamed
     2300000: //RootNode
-    2300002: Cube_001
-    2300004: Plane_002
-    2300006: House
-    2300008: Large_House
-    2300010: Plane
-    2300012: Cube
     3300000: //RootNode
-    3300002: Cube_001
-    3300004: Plane_002
-    3300006: House
-    3300008: Large_House
-    3300010: Plane
-    3300012: Cube
-    4300000: Plane_002
-    4300002: Cube_001
-    4300004: Plane
-    4300006: House
-    4300008: Large_House
-    4300010: Cube
+    4300000: Cylinder
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

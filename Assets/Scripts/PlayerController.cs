@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Linq;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
     public float speed = 10;
     public float turnSpeed = 10;
+    public int health;
+    public int maxHealth;
     public Rigidbody rb;
     public Transform holdObjectTransform;
     public ThrowableObject heldObject;
@@ -18,6 +21,26 @@ public class PlayerController : NetworkBehaviour
     public float heldObjectFolllowSmooth;
     private Vector3 offset;
     private Vector3 smoothVelocity;
+    private float chargeSmoothVelocity;
+    private GameManager gameManager;
+    public MeshRenderer mainRenderer;
+    public MeshRenderer innerRenderer;
+    public SpriteRenderer arrowSprite;
+    public Color otherPlayerColor1;
+    public Color otherPlayerColor2;
+
+    private void Start()
+    {
+        gameManager = ServiceLocator.Instance.GetService<GameManager>();
+        if (isLocalPlayer)
+            gameManager.cameraController.player = transform;
+        else
+        {
+            mainRenderer.material.color = otherPlayerColor1;
+            arrowSprite.color = otherPlayerColor1;
+            innerRenderer.material.color = otherPlayerColor2;
+        }
+    }
 
     private void Update()
     {
@@ -26,6 +49,8 @@ public class PlayerController : NetworkBehaviour
             // exit from update if this is not the local player
             return;
         }
+
+        gameManager.healthImageFill.fillAmount = Mathf.SmoothDamp(gameManager.healthImageFill.fillAmount, (float)health / maxHealth, ref chargeSmoothVelocity, 0.75f);
 
         Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
@@ -37,7 +62,7 @@ public class PlayerController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             if (canThrow && heldObject != null)
-                ThrowObject();
+                StartCoroutine(ThrowObject());
             else if (heldObject == null)
             {
                 var colliders = Physics.OverlapSphere(transform.position, pickUpRadius).Where(x => x.GetComponent<ThrowableObject>() != null && !ReferenceEquals(x.gameObject, gameObject));
@@ -47,10 +72,9 @@ public class PlayerController : NetworkBehaviour
         }
 
         if (heldObject != null)
-        {
             heldObject.transform.position = Vector3.SmoothDamp(heldObject.transform.position, holdObjectTransform.position + offset, ref smoothVelocity, heldObjectFolllowSmooth);
-        }
     }
+
     public void PickUpObject(ThrowableObject pickUpGameObject)
     {
         if (heldObject == null)
@@ -65,13 +89,25 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public void ThrowObject()
+    public IEnumerator ThrowObject()
     {
         canThrow = false;
+        float time = 0;
+        while (Input.GetKey(KeyCode.Space) && time < 1)
+        {
+            time += Time.deltaTime;
+            gameManager.chargeUpImageFill.fillAmount = time / 1;
+            yield return new WaitForEndOfFrame();
+        }
+
+        gameManager.chargeUpImageFill.fillAmount = 1;
         heldObject.GetComponent<Collider>().enabled = true;
         heldObject.rb.useGravity = true;
         heldObject.thrown = true;
-        heldObject.rb.AddForce((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower), ForceMode.Impulse);
+        if (time > 5)
+            time = 5;
+        heldObject.rb.AddForce(((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower)) * (time / 1), ForceMode.Impulse);
         heldObject = null;
+        gameManager.chargeUpImageFill.fillAmount = 0;
     }
 }

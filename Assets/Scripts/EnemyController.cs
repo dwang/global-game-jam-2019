@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float health;
+    public int health;
     public float speed;
 
     [Header("Dependencies")]
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Throwable") && collision.gameObject.GetComponent<ThrowableObject>().thrown)
         {
             Rigidbody throwableObject = collision.gameObject.GetComponent<Rigidbody>();
-            if (throwableObject.velocity.magnitude > 2 && rb.mass >= health)
+            if (throwableObject.velocity.magnitude > 1 && rb.mass >= health)
                 Death();
         } else if (rb.velocity.magnitude > 2 && rb.mass >= health)
             Death();

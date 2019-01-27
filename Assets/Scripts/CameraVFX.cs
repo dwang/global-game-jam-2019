@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraVFX : MonoBehaviour, IService
 {
 	[SerializeField]
 	private Material Mat;
 	private Camera camera;
+    public Image chargeUpImageFill;
+    public Image healthFill;
 
-	private void Awake() {
+    private void Awake() {
         ServiceLocator.Instance.AddService(this);
 		camera = GetComponent<Camera> ();
 		originalZoom = camera.orthographicSize;
