@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1505,8 +1505,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1335874247}
-  - component: {fileID: 1335874246}
   - component: {fileID: 1335874248}
+  - component: {fileID: 1335874246}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -1539,8 +1539,8 @@ MonoBehaviour:
     type: 3}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: Gameplay
-  m_OnlineScene: Gameplay
+  m_OfflineScene: 
+  m_OnlineScene: 
   m_SpawnPrefabs: []
   m_CustomConfig: 0
   m_MaxConnections: 4
