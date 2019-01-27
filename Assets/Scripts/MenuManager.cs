@@ -8,11 +8,9 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour, IService
 {
     public GameObject[] menus;
-    [SerializeField]
-    private TextMeshProUGUI pointsToWinText;
-    [SerializeField]
-    private TextMeshProUGUI gameModeText;
     public TransitionManager transitionManager;
+    public SaveManager saveManager;
+    public TextMeshProUGUI scoreText;
 
     private void Awake()
     {
@@ -22,6 +20,11 @@ public class MenuManager : MonoBehaviour, IService
     private void Start()
     {
         transitionManager = ServiceLocator.Instance.GetService<TransitionManager>();
+        saveManager = ServiceLocator.Instance.GetService<SaveManager>();
+
+        scoreText.text = "";
+        for (int i = 0; i < saveManager.State.highscores.Length; i++)
+            scoreText.text += (i + 1) + ") " + saveManager.State.highscores[i] + "\n";
     }
 
     private void OnDestroy()

@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour, IService
             score += 10;
         else if (enemy is CircleEnemy)
             score += 15;
+        else if (enemy is BoomerangEnemy)
+            score += 20;
         else
             score += 5;
         scoreText.text = score.ToString();

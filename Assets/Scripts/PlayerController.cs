@@ -25,9 +25,11 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     public ParticleSystem deathParticles;
     public AudioSource deathAudio;
+    public SaveManager saveManager;
 
     private void Start()
     {
+        saveManager= ServiceLocator.Instance.GetService<SaveManager>();
         gameManager = ServiceLocator.Instance.GetService<GameManager>();
         gameManager.cameraController.player = transform;
     }
@@ -109,6 +111,8 @@ public class PlayerController : MonoBehaviour
             gameManager.TransitionBack();
             Destroy(gameObject);
             gameManager.healthImageFill.fillAmount = 0;
+            saveManager.AddHighScore(gameManager.score);
+            saveManager.Save();
         }
     }
 }

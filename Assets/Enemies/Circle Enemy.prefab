@@ -14636,7 +14636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4717250cbb1c44d99c909c83d40b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 2
   speed: 5
   rb: {fileID: 6379901726472884639}
   throwable: {fileID: 1418030836366437381}

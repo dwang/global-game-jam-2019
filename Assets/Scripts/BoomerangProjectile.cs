@@ -20,9 +20,12 @@ public class BoomerangProjectile : Projectile
 
     public void Update()
     {
-        time += Time.deltaTime * speed;
-        transform.position = new Vector3(center.position.x + (width * Mathf.Cos(Mathf.Deg2Rad * time)),
-            center.position.y + (height * Mathf.Sin(Mathf.Deg2Rad * time)));
+        if (time <= 0)
+            DestroyProjectile();
+        time -= Time.deltaTime * speed;
+        rb.MovePosition(center.position + new Vector3(width * Mathf.Cos(Mathf.Deg2Rad * time), 0,
+           height * Mathf.Sin(Mathf.Deg2Rad * time)));
+        Debug.Log(rb.position);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +34,11 @@ public class BoomerangProjectile : Projectile
             return;
         if (other.gameObject.CompareTag("Player"))
             other.gameObject.GetComponent<PlayerController>().Damage(damage);
+        DestroyProjectile();
+    }
+
+    public void DestroyProjectile()
+    {
         deathParticle.transform.SetParent(null);
         deathParticle.Play();
         deathSound.Play();

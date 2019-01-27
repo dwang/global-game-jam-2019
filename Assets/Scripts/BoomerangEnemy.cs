@@ -26,7 +26,11 @@ public class BoomerangEnemy : EnemyController
         fired = true;
         muzzleFlash.Play();
         muzzleAudio.Play();
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, 0, 0))).GetComponent<BoomerangProjectile>().center = transform;
+        for (int i = 0; i < 3; i++)
+        {
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, 0, 0))).GetComponent<BoomerangProjectile>().center = transform;
+            yield return new WaitForSeconds(0.33f);
+        }
         yield return new WaitForSeconds(reloadTime);
         fired = false;
     }

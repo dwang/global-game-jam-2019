@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
             Rigidbody throwableObject = collision.gameObject.GetComponent<Rigidbody>();
             if (throwableObject.velocity.magnitude > 1 && rb.mass >= health)
                 Death();
-        } else if (throwable.thrown && rb.velocity.magnitude > 2 && rb.mass >= health)
+        } else if (throwable.thrown && rb.velocity.magnitude > rb.mass)
             Death();
     }
 
