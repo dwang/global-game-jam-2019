@@ -8,6 +8,7 @@ public class ShotgunEnemy : EnemyController
     public float reloadTime;
     public GameObject projectilePrefab;
     public ParticleSystem muzzleFlash;
+    public AudioSource muzzleAudio;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class ShotgunEnemy : EnemyController
     {
         fired = true;
         muzzleFlash.Play();
+        muzzleAudio.Play();
         Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, 10, 0)));
         Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles));
         Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles - new Vector3(0, 10, 0)));

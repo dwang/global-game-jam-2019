@@ -8,6 +8,7 @@ public class CircleEnemy : EnemyController
     public float reloadTime;
     public GameObject projectilePrefab;
     public ParticleSystem muzzleFlash;
+    public AudioSource muzzleAudio;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class CircleEnemy : EnemyController
     {
         fired = true;
         muzzleFlash.Play();
+        muzzleAudio.Play();
         for (int i = 0; i < 360; i += 30)
             Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, i, 0)));
         yield return new WaitForSeconds(reloadTime);

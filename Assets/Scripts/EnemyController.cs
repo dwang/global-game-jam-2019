@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class EnemyController : NetworkBehaviour
+public class EnemyController : MonoBehaviour
 {
     public int health;
     public float speed;
@@ -12,6 +12,7 @@ public class EnemyController : NetworkBehaviour
     public Rigidbody rb;
     public ThrowableObject throwable;
     public ParticleSystem explosion;
+    public AudioSource explosionAudio;
     public GameManager gameManager;
     public Transform target;
 
@@ -54,7 +55,9 @@ public class EnemyController : NetworkBehaviour
 
     public void Death()
     {
+        gameManager.EnemyDeath(this);
         explosion.transform.SetParent(null);
+        explosionAudio.Play();
         explosion.Play();
         Destroy(explosion.gameObject, explosion.main.duration);
         Destroy(gameObject);

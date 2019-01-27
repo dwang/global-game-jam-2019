@@ -10,10 +10,12 @@ public class ThrowableObject : MonoBehaviour
     public bool thrown;
     public float jumpAmount;
     public CameraVFX cameraVFX;
+    public GameManager gameManager;
 
     private void Start()
     {
         cameraVFX = ServiceLocator.Instance.GetService<CameraVFX>();
+        gameManager = ServiceLocator.Instance.GetService<GameManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,6 +25,7 @@ public class ThrowableObject : MonoBehaviour
         else if (thrown)
         {
             cameraVFX.Shake(Mathf.Clamp(0.05f * rb.mass, 0, 0.1f), 0.1f * rb.mass, 1f);
+            gameManager.thumpAudio.Play();
             thrown = false;
         }
     }

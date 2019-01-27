@@ -23,11 +23,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 smoothVelocity;
     private float chargeSmoothVelocity;
     private GameManager gameManager;
-    public MeshRenderer mainRenderer;
-    public MeshRenderer innerRenderer;
-    public SpriteRenderer arrowSprite;
-    public Color otherPlayerColor1;
-    public Color otherPlayerColor2;
+    public ParticleSystem deathParticles;
+    public AudioSource deathAudio;
 
     private void Start()
     {
@@ -39,12 +36,12 @@ public class PlayerController : MonoBehaviour
     {
         gameManager.healthImageFill.fillAmount = Mathf.SmoothDamp(gameManager.healthImageFill.fillAmount, (float)health / maxHealth, ref chargeSmoothVelocity, 0.75f);
 
-        Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed;
 
         // Apply this movement to the rigidbody's position.
-        rb.MovePosition(rb.position + movement * Time.deltaTime);
+        rb.velocity = movement * Time.fixedDeltaTime;
 
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0));
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0, Input.GetAxis("Horizontal") * turnSpeed * Time.fixedDeltaTime, 0));
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
@@ -62,14 +59,14 @@ public class PlayerController : MonoBehaviour
             heldObject.transform.position = Vector3.SmoothDamp(heldObject.transform.position, holdObjectTransform.position + offset, ref smoothVelocity, heldObjectFolllowSmooth);
     }
 
-    public void PickUpObject(ThrowableObject heldObject)
+    public void PickUpObject(ThrowableObject newHeldObject)
     {
         if (heldObject == null)
         {
-            this.heldObject = heldObject;
+            heldObject = newHeldObject;
             
             heldObject.rb.velocity = Vector3.zero;
-            offset = new Vector3(0, heldObject.mesh.bounds.size.magnitude * heldObject.transform.lossyScale.x / 2, 0);
+            offset = new Vector3(0, heldObject.mesh.bounds.size.y / 4, 0);
             heldObject.rb.useGravity = false;
             heldObject.GetComponent<Collider>().enabled = false;
             canThrow = true;
@@ -96,5 +93,18 @@ public class PlayerController : MonoBehaviour
         heldObject.rb.AddForce(((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower)) * (time / 1), ForceMode.Impulse);
         gameManager.chargeUpImageFill.fillAmount = 0;
         heldObject = null;
+    }
+
+    public void Damage(int amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            deathParticles.transform.SetParent(null);
+            deathParticles.Play();
+            deathAudio.Play();
+            Destroy(deathParticles.gameObject, deathParticles.main.duration);
+            Destroy(gameObject);
+        }
     }
 }

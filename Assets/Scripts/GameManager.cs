@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour, IService
     public CameraController cameraController;
     public Image healthImageFill;
     public Image chargeUpImageFill;
+    public AudioSource thumpAudio;
     
     [Header("Prefabs")]
     public GameObject[] enemyPrefabs;
@@ -19,9 +20,8 @@ public class GameManager : MonoBehaviour, IService
 
     [Header("Waves")]
     public int wave = 1;
-    public float spawnRadius;
-    public float timeLeft;
-    public TextMeshPro scoreText;
+    public int score;
+    public TextMeshProUGUI scoreText;
     public List<EnemyController> enemies;
     public Transform[] spawnLocations;
 
@@ -31,16 +31,22 @@ public class GameManager : MonoBehaviour, IService
         ServiceLocator.Instance.AddService(this);
     }
 
+    public void Start()
+    {
+        StartCoroutine(StartWave());
+    }
+
     public IEnumerator StartWave()
     {
         wave++;
-        int randAmount = Random.Range(wave / 2, wave);
-        int randLocation = Random.Range(0, spawnLocations.Length - 1);
-        for (int j = 0; j < enemies.Count; j++)
+        int randAmount = Random.Range(wave / 2, wave + 1);
+        if (wave == 1)
+            randAmount = 1;
+        int randLocation = Random.Range(0, spawnLocations.Length);
+        for (int j = 0; j < enemyPrefabs.Length; j++)
             for (int i = 0; i < randAmount; i++)
             {
-                enemies.Add(Instantiate(enemies[j], spawnLocations[randLocation].position, Quaternion.identity).GetComponent<EnemyController>());
-                enemies[enemies.Count - 1].GetComponent<Rigidbody>().AddForce(-spawnLocations[randLocation].position * 20, ForceMode.Impulse);
+                enemies.Add(Instantiate(enemyPrefabs[j], spawnLocations[randLocation].position, Quaternion.identity).GetComponent<EnemyController>());
                 yield return new WaitForSeconds(0.5f);
             }
     }
@@ -49,9 +55,14 @@ public class GameManager : MonoBehaviour, IService
     {
         enemies.Remove(enemy);
         if (enemy is ShotgunEnemy)
-            
+            score += 10;
+        else if (enemy is CircleEnemy)
+            score += 15;
+        else
+            score += 5;
+        scoreText.text = score.ToString();
         if (enemies.Count == 0)
-            StartWave();
+            StartCoroutine(StartWave());
     }
 
     private void OnDestroy()
