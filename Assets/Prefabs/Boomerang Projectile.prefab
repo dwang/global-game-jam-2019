@@ -128,7 +128,7 @@ MonoBehaviour:
   height: 5
   width: 5
   speed: 100
-  time: 0
+  time: 360
   center: {fileID: 0}
   deathParticle: {fileID: 4488614292316851208}
   deathSound: {fileID: 5985153750761879561}
