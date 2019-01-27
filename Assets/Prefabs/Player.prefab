@@ -191,6 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 500
   turnSpeed: 300
+  health: 0
+  maxHealth: 0
   rb: {fileID: 5915822933240203355}
   holdObjectTransform: {fileID: 5915822933447111131}
   heldObject: {fileID: 0}
@@ -199,6 +201,8 @@ MonoBehaviour:
   pickUpRadius: 3
   canThrow: 0
   heldObjectFolllowSmooth: 0.5
+  chargeUpImageFill: {fileID: 0}
+  healthFill: {fileID: 0}
 --- !u!54 &5915822933240203355
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -260,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 0
+  m_TransformSyncMode: 3
   m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
