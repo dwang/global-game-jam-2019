@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour, IService
     public Image healthImageFill;
     public Image chargeUpImageFill;
     public AudioSource thumpAudio;
-    
+    public GameObject player;
+
     [Header("Prefabs")]
     public GameObject[] enemyPrefabs;
     public GameObject[] housePrefabs;

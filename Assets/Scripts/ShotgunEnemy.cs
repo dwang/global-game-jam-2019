@@ -10,10 +10,11 @@ public class ShotgunEnemy : EnemyController
     public ParticleSystem muzzleFlash;
     public AudioSource muzzleAudio;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target != null)
         {
+            rb.velocity = transform.forward * speed;
             rb.MoveRotation(Quaternion.Euler(0, -Mathf.Atan2(target.position.z - transform.position.z, target.position.x - transform.position.x) * Mathf.Rad2Deg + 90, 0));
             if (!fired)
                 StartCoroutine(Fire());

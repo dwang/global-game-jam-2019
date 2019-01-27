@@ -64,7 +64,9 @@ public class PlayerController : MonoBehaviour
         if (heldObject == null)
         {
             heldObject = newHeldObject;
-            
+
+            if (heldObject.GetComponent<EnemyController>())
+                heldObject.GetComponent<EnemyController>().enabled = false;
             heldObject.rb.velocity = Vector3.zero;
             offset = new Vector3(0, heldObject.mesh.bounds.size.y / 4, 0);
             heldObject.rb.useGravity = false;

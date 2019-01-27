@@ -21,7 +21,6 @@ public class BasicProjectile : Projectile
             return;
         if (other.gameObject.CompareTag("Player"))
             other.gameObject.GetComponent<PlayerController>().Damage(damage);
-        Debug.Break();
         deathParticle.transform.SetParent(null);
         deathParticle.Play();
         deathSound.Play();

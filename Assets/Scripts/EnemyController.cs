@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-<<<<<<< HEAD
 public class EnemyController : MonoBehaviour
-=======
-public class EnemyController :  MonoBehaviour
->>>>>>> 95b668a9fd1137fce2a6add11fd2c3bcc4ee2c24
 {
     public int health;
     public float speed;
@@ -23,30 +19,19 @@ public class EnemyController :  MonoBehaviour
     private void Start()
     {
         gameManager = ServiceLocator.Instance.GetService<GameManager>();
+        target = gameManager.player.transform;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target != null)
         {
+            rb.velocity = transform.forward * speed;
             rb.MoveRotation(Quaternion.Euler(0, -Mathf.Atan2(target.position.z - transform.position.z, target.position.x - transform.position.x) * Mathf.Rad2Deg + 90, 0));
-            rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            target = other.transform;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            target = null;
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Throwable") && collision.gameObject.GetComponent<ThrowableObject>().thrown)
         {

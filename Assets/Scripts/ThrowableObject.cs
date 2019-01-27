@@ -24,6 +24,11 @@ public class ThrowableObject : MonoBehaviour
             rb.AddForce(Vector3.up * jumpAmount);
         else if (thrown)
         {
+            if (GetComponent<EnemyController>())
+            {
+                GetComponent<EnemyController>().enabled = true;
+                GetComponent<EnemyController>().OnCollisionEnter(collision);
+            }
             cameraVFX.Shake(Mathf.Clamp(0.05f * rb.mass, 0, 0.1f), 0.1f * rb.mass, 1f);
             gameManager.thumpAudio.Play();
             thrown = false;
