@@ -195,6 +195,7 @@ MonoBehaviour:
   maxHealth: 5
   rb: {fileID: 5915822933240203355}
   holdObjectTransform: {fileID: 5915822933447111131}
+  hasHeldObject: 0
   heldObject: {fileID: 0}
   forwardThrowPower: 150
   upwardThrowPower: 10

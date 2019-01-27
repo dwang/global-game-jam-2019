@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ThrowableObject : MonoBehaviour
+public class ThrowableObject : NetworkBehaviour
 {
     public Rigidbody rb;
     public MeshRenderer mesh;
+    [SyncVar]
     public bool thrown;
     public float jumpAmount;
     public CameraVFX cameraVFX;

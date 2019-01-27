@@ -103,12 +103,12 @@ MonoBehaviour:
   health: 3
   speed: 3
   rb: {fileID: 2055130592394810745}
+  throwable: {fileID: 6314441658482141411}
   explosion: {fileID: 2055130592421873126}
   gameManager: {fileID: 0}
   target: {fileID: 0}
   fired: 0
   reloadTime: 3
-  chargeTime: 1
   projectilePrefab: {fileID: 4956114123226995964, guid: 8b2b10caae4e8b845b6dfbe4d4425cff,
     type: 3}
   muzzleFlash: {fileID: 7401820350886725712}
@@ -157,7 +157,7 @@ MonoBehaviour:
     i14: 0
     i15: 0
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &7633213563068766417
 MonoBehaviour:
   m_ObjectHideFlags: 0

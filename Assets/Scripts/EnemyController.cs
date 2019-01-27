@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class EnemyController : NetworkBehaviour
+public class EnemyController : MonoBehaviour
 {
     public int health;
     public float speed;
 
     [Header("Dependencies")]
     public Rigidbody rb;
+    public ThrowableObject throwable;
     public ParticleSystem explosion;
     public GameManager gameManager;
     public Transform target;
@@ -47,7 +48,7 @@ public class EnemyController : NetworkBehaviour
             Rigidbody throwableObject = collision.gameObject.GetComponent<Rigidbody>();
             if (throwableObject.velocity.magnitude > 1 && rb.mass >= health)
                 Death();
-        } else if (rb.velocity.magnitude > 2 && rb.mass >= health)
+        } else if (throwable.thrown && rb.velocity.magnitude > 2 && rb.mass >= health)
             Death();
     }
 

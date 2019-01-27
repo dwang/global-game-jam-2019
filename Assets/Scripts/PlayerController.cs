@@ -9,10 +9,15 @@ public class PlayerController : NetworkBehaviour
 {
     public float speed = 10;
     public float turnSpeed = 10;
+    [SyncVar]
     public int health;
     public int maxHealth;
     public Rigidbody rb;
     public Transform holdObjectTransform;
+    [SyncVar]
+    public NetworkInstanceId heldObjectID;
+    [SyncVar(hook = "OnHeldObjectChanged")]
+    public bool hasHeldObject;
     public ThrowableObject heldObject;
     public float forwardThrowPower;
     public float upwardThrowPower;
@@ -67,7 +72,7 @@ public class PlayerController : NetworkBehaviour
             {
                 var colliders = Physics.OverlapSphere(transform.position, pickUpRadius).Where(x => x.GetComponent<ThrowableObject>() != null && !ReferenceEquals(x.gameObject, gameObject));
                 if (colliders.Count() > 0)
-                    PickUpObject(colliders.First().GetComponent<ThrowableObject>());
+                    CmdPickUpObject(colliders.First().GetComponent<ThrowableObject>().netId);
             }
         }
 
@@ -75,18 +80,35 @@ public class PlayerController : NetworkBehaviour
             heldObject.transform.position = Vector3.SmoothDamp(heldObject.transform.position, holdObjectTransform.position + offset, ref smoothVelocity, heldObjectFolllowSmooth);
     }
 
-    public void PickUpObject(ThrowableObject pickUpGameObject)
+    public void OnHeldObjectChanged(bool hasHeldObject)
+    {
+        heldObject = hasHeldObject ? NetworkServer.FindLocalObject(heldObjectID).GetComponent<ThrowableObject>() : null;
+    }
+
+
+    [Command]
+    public void CmdPickUpObject(NetworkInstanceId id)
     {
         if (heldObject == null)
         {
-            heldObject = pickUpGameObject;
+            heldObjectID = id;
+            hasHeldObject = true;
 
+            heldObject.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
             heldObject.rb.velocity = Vector3.zero;
             offset = new Vector3(0, heldObject.mesh.bounds.size.magnitude * heldObject.transform.lossyScale.x / 2, 0);
             heldObject.rb.useGravity = false;
             heldObject.GetComponent<Collider>().enabled = false;
             canThrow = true;
         }
+    }
+    
+    [Command]
+    public void CmdThrowObject()
+    {
+        Debug.Log(heldObject);
+        heldObject.GetComponent<NetworkIdentity>().RemoveClientAuthority(connectionToClient);
+        hasHeldObject = false;
     }
 
     public IEnumerator ThrowObject()
@@ -107,7 +129,7 @@ public class PlayerController : NetworkBehaviour
         if (time > 5)
             time = 5;
         heldObject.rb.AddForce(((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower)) * (time / 1), ForceMode.Impulse);
-        heldObject = null;
         gameManager.chargeUpImageFill.fillAmount = 0;
+        CmdThrowObject();
     }
 }

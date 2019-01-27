@@ -4838,6 +4838,7 @@ MonoBehaviour:
   health: 1
   speed: 5
   rb: {fileID: 338806992882679376}
+  throwable: {fileID: 5735196081118643146}
   explosion: {fileID: 338806991987388111}
   gameManager: {fileID: 0}
   target: {fileID: 8526429537991777109}
@@ -4916,7 +4917,7 @@ MonoBehaviour:
     i14: 0
     i15: 0
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &5926165215766262768
 MonoBehaviour:
   m_ObjectHideFlags: 0
