@@ -7,9 +7,11 @@ public class BasicProjectile : Projectile
     public Rigidbody rb;
     public float speed;
     public ParticleSystem deathParticle;
+    public AudioSource deathSound;
 
     private void Start()
     {
+        Destroy(gameObject, 10);
         rb.velocity = transform.forward * speed;
     }
 
@@ -17,9 +19,11 @@ public class BasicProjectile : Projectile
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Projectiles") || other.CompareTag("Enemy"))
             return;
-        Debug.Log(LayerMask.LayerToName(other.gameObject.layer) + " " + other.tag);
+        if (other.gameObject.CompareTag("Player"))
+            other.gameObject.GetComponent<PlayerController>().Damage(damage);
         deathParticle.transform.SetParent(null);
         deathParticle.Play();
+        deathSound.Play();
         Destroy(deathParticle.gameObject, deathParticle.main.duration);
         Destroy(gameObject);
     }

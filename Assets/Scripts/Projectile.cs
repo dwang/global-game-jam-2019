@@ -4,8 +4,5 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    public virtual void Damage(PlayerController player)
-    {
-        Destroy(player.gameObject);
-    }
+    public int damage;
 }
