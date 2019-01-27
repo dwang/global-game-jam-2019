@@ -5052,8 +5052,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 500
   turnSpeed: 300
-  health: 5
-  maxHealth: 5
+  health: 100
+  maxHealth: 100
   rb: {fileID: 5915822933240203355}
   holdObjectTransform: {fileID: 5915822933447111131}
   heldObject: {fileID: 0}

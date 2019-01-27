@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dea099d6031bd4c864e3e4e9ec108e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 5
   rb: {fileID: 4956114123226995906}
   speed: 10
   deathParticle: {fileID: 4488614292316851208}

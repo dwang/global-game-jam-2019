@@ -43,10 +43,10 @@ public class GameManager : MonoBehaviour, IService
         int randAmount = Random.Range(wave / 2, wave + 1);
         if (wave == 1)
             randAmount = 1;
-        int randLocation = Random.Range(0, spawnLocations.Length);
         for (int j = 0; j < enemyPrefabs.Length; j++)
             for (int i = 0; i < randAmount; i++)
             {
+                int randLocation = Random.Range(0, spawnLocations.Length);
                 enemies.Add(Instantiate(enemyPrefabs[j], spawnLocations[randLocation].position, Quaternion.identity).GetComponent<EnemyController>());
                 yield return new WaitForSeconds(0.5f);
             }
