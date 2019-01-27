@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2055130592394810742}
   - component: {fileID: 2055130592394810745}
   - component: {fileID: 6314441658482141411}
-  - component: {fileID: 2212130009639676094}
   - component: {fileID: 2055130592394810741}
   - component: {fileID: 7121057368410450410}
   - component: {fileID: 1848419985524568066}
@@ -75,19 +74,6 @@ MonoBehaviour:
   jumpAmount: 5
   cameraVFX: {fileID: 0}
   gameManager: {fileID: 0}
---- !u!135 &2212130009639676094
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055130592394810738}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2055130592394810741
 MonoBehaviour:
   m_ObjectHideFlags: 0

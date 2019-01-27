@@ -1121,6 +1121,7 @@ MonoBehaviour:
   - {fileID: 338806992882679387, guid: 6d2a5257ddd5f1648a1c9c65fb218348, type: 3}
   - {fileID: 2055130592394810738, guid: 90dfcb20e0f13f74dba9c79c723c5211, type: 3}
   - {fileID: 6379901726472884628, guid: 62106f2475cf3af49a1bd24713443242, type: 3}
+  - {fileID: 6379901726472884628, guid: d9ee26d47d50f7b489a7f876f6c0df60, type: 3}
   housePrefabs: []
   wave: 0
   score: 0
@@ -1261,7 +1262,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

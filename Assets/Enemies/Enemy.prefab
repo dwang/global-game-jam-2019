@@ -4875,7 +4875,6 @@ GameObject:
   - component: {fileID: 338806992882679376}
   - component: {fileID: 338806992882679377}
   - component: {fileID: 5735196081118643146}
-  - component: {fileID: 470051998440768407}
   - component: {fileID: 3149158484472498250}
   m_Layer: 10
   m_Name: Enemy
@@ -4956,19 +4955,6 @@ MonoBehaviour:
   jumpAmount: 5
   cameraVFX: {fileID: 0}
   gameManager: {fileID: 0}
---- !u!135 &470051998440768407
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338806992882679387}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &3149158484472498250
 BoxCollider:
   m_ObjectHideFlags: 0
