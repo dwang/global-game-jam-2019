@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ThrowableObject : NetworkBehaviour
+public class ThrowableObject : MonoBehaviour
 {
     public Rigidbody rb;
     public MeshRenderer mesh;
-    [SyncVar]
     public bool thrown;
     public float jumpAmount;
     public CameraVFX cameraVFX;

@@ -5,19 +5,14 @@ using UnityEngine.Networking;
 using System.Linq;
 using UnityEngine.UI;
 
-public class PlayerController : NetworkBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed = 10;
     public float turnSpeed = 10;
-    [SyncVar]
     public int health;
     public int maxHealth;
     public Rigidbody rb;
     public Transform holdObjectTransform;
-    [SyncVar]
-    public NetworkInstanceId heldObjectID;
-    [SyncVar(hook = "OnHeldObjectChanged")]
-    public bool hasHeldObject;
     public ThrowableObject heldObject;
     public float forwardThrowPower;
     public float upwardThrowPower;
@@ -37,24 +32,11 @@ public class PlayerController : NetworkBehaviour
     private void Start()
     {
         gameManager = ServiceLocator.Instance.GetService<GameManager>();
-        if (isLocalPlayer)
-            gameManager.cameraController.player = transform;
-        else
-        {
-            mainRenderer.material.color = otherPlayerColor1;
-            arrowSprite.color = otherPlayerColor1;
-            innerRenderer.material.color = otherPlayerColor2;
-        }
+        gameManager.cameraController.player = transform;
     }
 
     private void Update()
     {
-        if (!isLocalPlayer)
-        {
-            // exit from update if this is not the local player
-            return;
-        }
-
         gameManager.healthImageFill.fillAmount = Mathf.SmoothDamp(gameManager.healthImageFill.fillAmount, (float)health / maxHealth, ref chargeSmoothVelocity, 0.75f);
 
         Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
@@ -72,7 +54,7 @@ public class PlayerController : NetworkBehaviour
             {
                 var colliders = Physics.OverlapSphere(transform.position, pickUpRadius).Where(x => x.GetComponent<ThrowableObject>() != null && !ReferenceEquals(x.gameObject, gameObject));
                 if (colliders.Count() > 0)
-                    CmdPickUpObject(colliders.First().GetComponent<ThrowableObject>().netId);
+                    PickUpObject(colliders.First().GetComponent<ThrowableObject>());
             }
         }
 
@@ -80,35 +62,18 @@ public class PlayerController : NetworkBehaviour
             heldObject.transform.position = Vector3.SmoothDamp(heldObject.transform.position, holdObjectTransform.position + offset, ref smoothVelocity, heldObjectFolllowSmooth);
     }
 
-    public void OnHeldObjectChanged(bool hasHeldObject)
-    {
-        heldObject = hasHeldObject ? NetworkServer.FindLocalObject(heldObjectID).GetComponent<ThrowableObject>() : null;
-    }
-
-
-    [Command]
-    public void CmdPickUpObject(NetworkInstanceId id)
+    public void PickUpObject(ThrowableObject heldObject)
     {
         if (heldObject == null)
         {
-            heldObjectID = id;
-            hasHeldObject = true;
-
-            heldObject.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
+            this.heldObject = heldObject;
+            
             heldObject.rb.velocity = Vector3.zero;
             offset = new Vector3(0, heldObject.mesh.bounds.size.magnitude * heldObject.transform.lossyScale.x / 2, 0);
             heldObject.rb.useGravity = false;
             heldObject.GetComponent<Collider>().enabled = false;
             canThrow = true;
         }
-    }
-    
-    [Command]
-    public void CmdThrowObject()
-    {
-        Debug.Log(heldObject);
-        heldObject.GetComponent<NetworkIdentity>().RemoveClientAuthority(connectionToClient);
-        hasHeldObject = false;
     }
 
     public IEnumerator ThrowObject()
@@ -130,6 +95,6 @@ public class PlayerController : NetworkBehaviour
             time = 5;
         heldObject.rb.AddForce(((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower)) * (time / 1), ForceMode.Impulse);
         gameManager.chargeUpImageFill.fillAmount = 0;
-        CmdThrowObject();
+        heldObject = null;
     }
 }
