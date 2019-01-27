@@ -189,20 +189,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56e90c4473b28c4dbf54d893ae448cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
+  speed: 600
   turnSpeed: 300
-  health: 0
-  maxHealth: 0
+  health: 5
+  maxHealth: 5
   rb: {fileID: 5915822933240203355}
   holdObjectTransform: {fileID: 5915822933447111131}
   heldObject: {fileID: 0}
-  forwardThrowPower: 75
-  upwardThrowPower: 5
+  forwardThrowPower: 150
+  upwardThrowPower: 10
   pickUpRadius: 3
   canThrow: 0
   heldObjectFolllowSmooth: 0.5
-  chargeUpImageFill: {fileID: 0}
-  healthFill: {fileID: 0}
+  mainRenderer: {fileID: 5915822933240203359}
+  innerRenderer: {fileID: 426346145428334990}
+  arrowSprite: {fileID: 5915822932038043310}
+  otherPlayerColor1: {r: 0, g: 0.65502506, b: 0.78431374, a: 1}
+  otherPlayerColor2: {r: 0, g: 1, b: 1, a: 1}
 --- !u!54 &5915822933240203355
 Rigidbody:
   m_ObjectHideFlags: 0

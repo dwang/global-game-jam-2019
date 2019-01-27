@@ -19,20 +19,38 @@ public class PlayerController : NetworkBehaviour
     public float pickUpRadius;
     public bool canThrow = false;
     public float heldObjectFolllowSmooth;
-    public Image chargeUpImageFill;
-    public Image healthFill;
     private Vector3 offset;
     private Vector3 smoothVelocity;
     private float chargeSmoothVelocity;
+    private GameManager gameManager;
+    public MeshRenderer mainRenderer;
+    public MeshRenderer innerRenderer;
+    public SpriteRenderer arrowSprite;
+    public Color otherPlayerColor1;
+    public Color otherPlayerColor2;
+
+    private void Start()
+    {
+        gameManager = ServiceLocator.Instance.GetService<GameManager>();
+        if (isLocalPlayer)
+            gameManager.cameraController.player = transform;
+        else
+        {
+            mainRenderer.material.color = otherPlayerColor1;
+            arrowSprite.color = otherPlayerColor1;
+            innerRenderer.material.color = otherPlayerColor2;
+        }
+    }
 
     private void Update()
     {
-        healthFill.fillAmount = Mathf.SmoothDamp(healthFill.fillAmount, (float) health / maxHealth, ref chargeSmoothVelocity, 0.75f);
         if (!isLocalPlayer)
         {
             // exit from update if this is not the local player
             return;
         }
+
+        gameManager.healthImageFill.fillAmount = Mathf.SmoothDamp(gameManager.healthImageFill.fillAmount, (float)health / maxHealth, ref chargeSmoothVelocity, 0.75f);
 
         Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
@@ -74,22 +92,22 @@ public class PlayerController : NetworkBehaviour
     public IEnumerator ThrowObject()
     {
         canThrow = false;
+        float time = 0;
+        while (Input.GetKey(KeyCode.Space) && time < 1)
+        {
+            time += Time.deltaTime;
+            gameManager.chargeUpImageFill.fillAmount = time / 1;
+            yield return new WaitForEndOfFrame();
+        }
+
+        gameManager.chargeUpImageFill.fillAmount = 1;
         heldObject.GetComponent<Collider>().enabled = true;
         heldObject.rb.useGravity = true;
         heldObject.thrown = true;
-        float time = 0;
-        while (Input.GetKey(KeyCode.Space) && time < 5)
-        {
-            time += Time.deltaTime;
-            chargeUpImageFill.fillAmount = time / 5;
-            yield return new WaitForEndOfFrame();
-        }
-        chargeUpImageFill.fillAmount = 1;
         if (time > 5)
             time = 5;
-        heldObject.rb.AddForce(((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower)) * (time / 5), ForceMode.Impulse);
+        heldObject.rb.AddForce(((transform.forward * forwardThrowPower) + (transform.up * upwardThrowPower)) * (time / 1), ForceMode.Impulse);
         heldObject = null;
-        yield return new WaitForSeconds(1f);
-        chargeUpImageFill.fillAmount = 0;
+        gameManager.chargeUpImageFill.fillAmount = 0;
     }
 }
