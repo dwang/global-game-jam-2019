@@ -9,8 +9,6 @@ public class MenuManager : MonoBehaviour, IService
 {
     public GameObject[] menus;
     [SerializeField]
-    private SaveManager saveManager;
-    [SerializeField]
     private TextMeshProUGUI pointsToWinText;
     [SerializeField]
     private TextMeshProUGUI gameModeText;
@@ -22,7 +20,7 @@ public class MenuManager : MonoBehaviour, IService
 
     private void Start()
     {
-        saveManager = ServiceLocator.Instance.GetService<SaveManager>();
+        
     }
 
     private void OnDestroy()
@@ -32,7 +30,7 @@ public class MenuManager : MonoBehaviour, IService
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameplaySetup");
+        SceneManager.LoadScene("Gameplay");
     }
 
     public void GotoMenu(string name)

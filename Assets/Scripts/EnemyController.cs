@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+<<<<<<< HEAD
 public class EnemyController : MonoBehaviour
+=======
+public class EnemyController :  MonoBehaviour
+>>>>>>> 95b668a9fd1137fce2a6add11fd2c3bcc4ee2c24
 {
     public int health;
     public float speed;
