@@ -14,4 +14,9 @@ public class GameManager : MonoBehaviour, IService
     {
         ServiceLocator.Instance.AddService(this);
     }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.Instance.RemoveService<GameManager>();
+    }
 }
