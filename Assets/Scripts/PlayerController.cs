@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float speed = 10;
     public float turnSpeed = 10;
@@ -20,6 +21,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!isLocalPlayer)
+        {
+            // exit from update if this is not the local player
+            return;
+        }
+
         Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
