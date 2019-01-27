@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using UnityEngine.Rendering;
 
 public class GameManager : NetworkBehaviour, IService
 {
@@ -13,9 +15,18 @@ public class GameManager : NetworkBehaviour, IService
     public GameObject[] enemies;
     public GameObject house;
 
-    private void Awake()
+
+    bool IsHeadless()
+    {
+        return SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null;
+    }
+
+        private void Awake()
     {
         ServiceLocator.Instance.AddService(this);
+
+        if (IsHeadless())
+            NetworkManager.singleton.StartServer();
     }
 
     private void Start()

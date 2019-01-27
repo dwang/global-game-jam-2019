@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -851,8 +851,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1335874247}
-  - component: {fileID: 1335874246}
   - component: {fileID: 1335874248}
+  - component: {fileID: 1335874246}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -885,6 +885,7 @@ MonoBehaviour:
     type: 3}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
+<<<<<<< HEAD
   m_OfflineScene: Gameplay
   m_OnlineScene: Gameplay
   m_SpawnPrefabs:
@@ -892,6 +893,11 @@ MonoBehaviour:
   - {fileID: 2055130592394810738, guid: 90dfcb20e0f13f74dba9c79c723c5211, type: 3}
   - {fileID: 6379901726472884628, guid: 62106f2475cf3af49a1bd24713443242, type: 3}
   - {fileID: 6511329766845564186, guid: b6182c0a8cb297247a41e57fe6fc666e, type: 3}
+=======
+  m_OfflineScene: 
+  m_OnlineScene: 
+  m_SpawnPrefabs: []
+>>>>>>> eb57631f08d1525caa12beecaa0c32aa1abff333
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -935,7 +941,7 @@ MonoBehaviour:
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
   m_Channels: 
-  m_UseWebSockets: 0
+  m_UseWebSockets: 1
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
