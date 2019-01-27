@@ -19,6 +19,11 @@ public class MenuManager : MonoBehaviour, IService
         ServiceLocator.Instance.AddService(this);
     }
 
+    private void Start()
+    {
+        transitionManager = ServiceLocator.Instance.GetService<TransitionManager>();
+    }
+
     private void OnDestroy()
     {
         ServiceLocator.Instance.RemoveService<MenuManager>();
