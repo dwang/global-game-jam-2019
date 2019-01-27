@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour, IService
     private TextMeshProUGUI pointsToWinText;
     [SerializeField]
     private TextMeshProUGUI gameModeText;
+    public TransitionManager transitionManager;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class MenuManager : MonoBehaviour, IService
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Gameplay");
+        transitionManager.TransitionTo("SinglePlayerWave");
     }
 
     public void GotoMenu(string name)
