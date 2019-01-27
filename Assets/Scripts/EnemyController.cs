@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
         if (target != null)
         {
             rb.velocity = transform.forward * speed;
-            rb.MoveRotation(Quaternion.Euler(0, -Mathf.Atan2(target.position.z - transform.position.z, target.position.x - transform.position.x) * Mathf.Rad2Deg + 90, 0));
+            rb.MoveRotation(Quaternion.Euler(new Vector3(0, -Mathf.Atan2(target.position.z - transform.position.z, target.position.x - transform.position.x) * Mathf.Rad2Deg + 90, 0)));
         }
     }
 

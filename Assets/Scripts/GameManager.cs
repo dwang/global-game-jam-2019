@@ -23,9 +23,9 @@ public class GameManager : MonoBehaviour, IService
     public int wave = 1;
     public int score;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI waveText;
     public List<EnemyController> enemies;
     public Transform[] spawnLocations;
-
 
     private void Awake()
     {
@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour, IService
     public IEnumerator StartWave()
     {
         wave++;
+        waveText.gameObject.SetActive(true);
+        waveText.text = "Wave " + wave;
         int randAmount = Random.Range(wave / 2, wave + 1);
         if (wave == 1)
             randAmount = 1;
@@ -50,6 +52,18 @@ public class GameManager : MonoBehaviour, IService
                 enemies.Add(Instantiate(enemyPrefabs[j], spawnLocations[randLocation].position, Quaternion.identity).GetComponent<EnemyController>());
                 yield return new WaitForSeconds(0.5f);
             }
+        waveText.gameObject.SetActive(false);
+    }
+
+    public void TransitionBack()
+    {
+        StartCoroutine(TransitionBackEnum());
+    }
+
+    private IEnumerator TransitionBackEnum()
+    {
+        yield return new WaitForSeconds(3f);
+        ServiceLocator.Instance.GetService<TransitionManager>().TransitionTo("Menu");
     }
 
     public void EnemyDeath(EnemyController enemy)

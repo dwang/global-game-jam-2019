@@ -106,7 +106,9 @@ public class PlayerController : MonoBehaviour
             deathParticles.Play();
             deathAudio.Play();
             Destroy(deathParticles.gameObject, deathParticles.main.duration);
+            gameManager.TransitionBack();
             Destroy(gameObject);
+            gameManager.healthImageFill.fillAmount = 0;
         }
     }
 }
