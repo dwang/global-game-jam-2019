@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float speed = 10;
     public float turnSpeed = 10;
@@ -27,6 +28,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         healthFill.fillAmount = Mathf.SmoothDamp(healthFill.fillAmount, (float) health / maxHealth, ref chargeSmoothVelocity, 0.75f);
+        if (!isLocalPlayer)
+        {
+            // exit from update if this is not the local player
+            return;
+        }
+
         Vector3 movement = transform.forward * Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
