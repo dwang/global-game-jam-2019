@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour, IService
 {
@@ -10,9 +12,18 @@ public class GameManager : MonoBehaviour, IService
     public Image healthImageFill;
     public Image chargeUpImageFill;
 
-    private void Awake()
+
+    bool IsHeadless()
+    {
+        return SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null;
+    }
+
+        private void Awake()
     {
         ServiceLocator.Instance.AddService(this);
+
+        if (IsHeadless())
+            NetworkManager.singleton.StartServer();
     }
 
     private void OnDestroy()
