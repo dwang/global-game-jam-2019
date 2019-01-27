@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotgunEnemy : EnemyController
+public class CircleEnemy : EnemyController
 {
     public bool fired;
     public float reloadTime;
@@ -23,9 +23,8 @@ public class ShotgunEnemy : EnemyController
     {
         fired = true;
         muzzleFlash.Play();
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, 10, 0)));
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles));
-        Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles - new Vector3(0, 10, 0)));
+        for (int i = 0; i < 360; i += 30)
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(transform.eulerAngles + new Vector3(0, i, 0)));
         yield return new WaitForSeconds(reloadTime);
         fired = false;
     }
