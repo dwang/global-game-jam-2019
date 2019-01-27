@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class EnemyController : NetworkBehaviour
+public class EnemyController :  MonoBehaviour
 {
     public int health;
     public float speed;

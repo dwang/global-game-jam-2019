@@ -3,35 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+using UnityEngine.Rendering;
+using TMPro;
 
-public class GameManager : NetworkBehaviour, IService
+public class GameManager : MonoBehaviour, IService
 {
     public CameraVFX cameraVFX;
     public CameraController cameraController;
     public Image healthImageFill;
     public Image chargeUpImageFill;
-    public GameObject[] enemies;
-    public GameObject house;
+    
+    [Header("Prefabs")]
+    public GameObject[] enemyPrefabs;
+    public GameObject[] housePrefabs;
+
+    [Header("Waves")]
+    public int wave = 1;
+    public float spawnRadius;
+    public float timeLeft;
+    public TextMeshPro scoreText;
+    public List<EnemyController> enemies;
+    public Transform[] spawnLocations;
+
 
     private void Awake()
     {
         ServiceLocator.Instance.AddService(this);
     }
 
-    private void Start()
+    public IEnumerator StartWave()
     {
-        if (isServer)
-        {
-            GameObject go;
-            for (int i = 0; i < 5; i++)
+        wave++;
+        int randAmount = Random.Range(wave / 2, wave);
+        int randLocation = Random.Range(0, spawnLocations.Length - 1);
+        for (int j = 0; j < enemies.Count; j++)
+            for (int i = 0; i < randAmount; i++)
             {
-                go = Instantiate(enemies[0], new Vector3(i * 2, 1, 0), Quaternion.identity);
-                NetworkServer.Spawn(go);
+                enemies.Add(Instantiate(enemies[j], spawnLocations[randLocation].position, Quaternion.identity).GetComponent<EnemyController>());
+                enemies[enemies.Count - 1].GetComponent<Rigidbody>().AddForce(-spawnLocations[randLocation].position * 20, ForceMode.Impulse);
+                yield return new WaitForSeconds(0.5f);
             }
-            go = Instantiate(house, new Vector3(0, 1, 2), Quaternion.Euler(-90, 0, 0));
-            NetworkServer.Spawn(go);
-        }
+    }
+
+    public void EnemyDeath(EnemyController enemy)
+    {
+        enemies.Remove(enemy);
+        if (enemy is ShotgunEnemy)
+            
+        if (enemies.Count == 0)
+            StartWave();
     }
 
     private void OnDestroy()

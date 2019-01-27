@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fd9b98b494a61d34590e056dbcd3bc9e
+guid: a86b488bff24049479b1ffbcac2d6c19
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -302,6 +302,7 @@ ModelImporter:
     4300114: Landscape
     7400000: Default Take
     9500000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1

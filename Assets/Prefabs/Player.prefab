@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56e90c4473b28c4dbf54d893ae448cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 600
+  speed: 300
   turnSpeed: 300
   health: 5
   maxHealth: 5
